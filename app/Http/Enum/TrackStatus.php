@@ -5,7 +5,7 @@ namespace App\Http\Enum;
 
 enum TrackStatus: string {
     case CREATED = "created";
-    case TRANSFERRING = "transferring";
+    case RETURN = "return";
     case RECEIVED = "received";
     case REVIEWED = "reviewed";
     case APPROVED = "approved";

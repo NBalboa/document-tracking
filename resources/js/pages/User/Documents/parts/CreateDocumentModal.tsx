@@ -41,6 +41,7 @@ const CreateDocumentModal = ({
 }) => {
 
 
+
     const filtered = useMemo(() => {
         if (!data.type) return documentTypes;
 
@@ -53,7 +54,7 @@ const CreateDocumentModal = ({
             <form className='space-y-6' onSubmit={onHandleSubmit}>
                 <FieldGroup>
                     <Field>
-                        <FieldLabel>Name</FieldLabel>
+                        <FieldLabel>Document Name</FieldLabel>
                         {errors.name && <FieldError>{errors.name}</FieldError>}
                         <Input
                             type='text'
@@ -62,14 +63,14 @@ const CreateDocumentModal = ({
                         />
                     </Field>
                     <Field className='relative'>
-                        <FieldLabel htmlFor="department" >Type</FieldLabel>
+                        <FieldLabel htmlFor="department">Document Type</FieldLabel>
                         {errors.type && <FieldError>{errors.type}</FieldError>}
                         <Input type='text'
                             onFocus={onHandleToggleList}
                             onBlur={() =>
                                 setTimeout(() => {
                                     onHandleToggleList()
-                                }, 100)}
+                                }, 300)}
                             value={data.type}
                             onChange={onHandleChangeType}
                         />
@@ -91,7 +92,7 @@ const CreateDocumentModal = ({
                         </Command>
                     </Field>
                     <Field>
-                        <FieldLabel>Description</FieldLabel>
+                        <FieldLabel>Other Specify</FieldLabel>
                         <Textarea
                             value={data.description}
                             onChange={onHandleChangeDescription}

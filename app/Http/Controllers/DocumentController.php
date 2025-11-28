@@ -20,11 +20,11 @@ class DocumentController extends Controller
         $this->documentService = app(DocumentService::class);
         $this->documentTypeService = app(DocumentTypeService::class);
     }
+
     public function index(Request $request) {
         $search = $request->get('search');
 
-        $documentTypes = [];
-        // $this->documentTypeService->all();
+        $documentTypes = $this->documentTypeService->all();
         $documents = $this->documentService->all($search);
 
         $statuses = TrackStatus::values();

@@ -1,9 +1,14 @@
-import { useRef } from "react";
+import { RefObject } from "react";
 import TrackController from "@/actions/App/Http/Controllers/TrackController";
 import QR from "react-qr-code";
 
-const QRCode = ({ id }: { id: string }) => {
-    const wrapperRef = useRef<HTMLDivElement | null>(null);
+const QRCode = ({
+    id,
+    wrapperRef,
+}: {
+    id: string,
+    wrapperRef: RefObject<HTMLDivElement | null>,
+}) => {
 
     const handleDownload = () => {
         const svg = wrapperRef.current?.querySelector("svg");

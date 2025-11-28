@@ -36,7 +36,7 @@ export const useSideBar = () => {
             roles: ['admin', 'staff']
         },
         {
-            name: "Document",
+            name: "My Documents",
             to: DocumentController.index.url(),
             icon: 'document',
             roles: ['admin', 'staff', 'user']

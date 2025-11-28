@@ -67,7 +67,9 @@ const Documents = ({
         handleSelectStatus,
         handleSubmitUpdate,
         handleChangeUpdate,
-        handleDelete
+        handleDelete,
+        wrapperRef,
+        handlePrint
     } = useDocuments();
 
     const {
@@ -161,7 +163,7 @@ const Documents = ({
                                             }
                                         </TableCell>
                                         <TableCell>
-                                            <QRCode id={data.id} />
+                                            <QRCode id={data.id} wrapperRef={wrapperRef} />
                                         </TableCell>
                                         <TableCell>{data.user.first_name} {data.user.last_name}</TableCell>
                                         <TableCell>
@@ -169,6 +171,9 @@ const Documents = ({
                                                 <Link className={cn(buttonVariants({ variant: 'link' }))} href={`${DocumentController.index.url()}/tracks/${data.id}`}>
                                                     Track
                                                 </Link>
+                                                <Button onClick={handlePrint} className={cn([buttonVariants({ variant: "outline" }), "text-black"])}>
+                                                    Print
+                                                </Button>
                                                 <Button
                                                     className={
                                                         cn(allowedRoles({ roles: ['admin', 'staff'], role: auth.user?.role }) ||

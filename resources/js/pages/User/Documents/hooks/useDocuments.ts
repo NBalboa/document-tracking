@@ -1,7 +1,7 @@
 import DocumentController from '@/actions/App/Http/Controllers/DocumentController';
 import { SharedData } from '@/types';
 import { router, useForm, usePage } from '@inertiajs/react'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'react-toastify';
 import TrackController from '@/actions/App/Http/Controllers/TrackController';
 import { Document } from '../types';
@@ -22,7 +22,9 @@ export const useDocuments = () => {
     const [isShowList, setIsShowList] = useState(false);
     const [activeDocument, setActiveDocument] = useState<Document | undefined>(undefined);
     const { flash } = usePage<SharedData>().props
-    const [isShowStatus, setIsShowStatus] = useState(false)
+    const [isShowStatus, setIsShowStatus] = useState(false);
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
+
 
     const { data, setData, post, errors, processing, reset } = useForm<FormData>({
         description: "",
@@ -114,6 +116,55 @@ export const useDocuments = () => {
         router.delete(DocumentController.delete.url(value))
     }
 
+    const handlePrint = () => {
+        const svg = wrapperRef.current?.querySelector("svg");
+        if (!svg) return;
+
+        const serializer = new XMLSerializer();
+        const svgData = serializer.serializeToString(svg);
+        const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(svgBlob);
+
+        const printWindow = window.open("", "_blank");
+        if (!printWindow) return;
+
+        const doc = printWindow.document;
+
+        doc.open();
+        doc.write(`
+        <html>
+            <head>
+                <title>Print QR</title>
+                <style>
+                    body {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100vh;
+                        margin: 0;
+                    }
+                </style>
+            </head>
+            <body>
+                <img id="qr-img" width="250" height="250" />
+            </body>
+        </html>
+    `);
+        doc.close();
+
+        const img = doc.getElementById("qr-img");
+        if (img) {
+            img.onload = () => {
+                printWindow.focus();
+                printWindow.print();
+                printWindow.close();
+                URL.revokeObjectURL(url);
+            };
+            img.src = url;
+        }
+    };
+
+
     useEffect(() => {
         if (!flash.success) return
 
@@ -141,7 +192,9 @@ export const useDocuments = () => {
         handleSelectStatus,
         handleSubmitUpdate,
         handleChangeUpdate,
-        handleDelete
+        handleDelete,
+        wrapperRef,
+        handlePrint
     }
 }
 
