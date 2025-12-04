@@ -17,6 +17,7 @@ const Track = ({ document }: {
                     <div className='space-y-2'>
                         <h3 className="text-lg font-bold">{document.name} <span className='font-normal text-muted-foreground'>({document.document_type.name})</span></h3>
                         <p className='text-muted-foreground'>{document.description}</p>
+                        <p className='text-sm text-muted-foreground'>{document.others}</p>
                     </div>
                     <div>
                         {document.tracks.map((track) => (

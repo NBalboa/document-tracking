@@ -50,6 +50,7 @@ class DocumentService {
             "document_type_id" => $data['type'],
             "name" => $data["name"],
             "description" => $data["description"],
+            "others" => $data["others"]
         ]);
 
         $trackService->create([

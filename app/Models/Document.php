@@ -19,7 +19,8 @@ class Document extends Model
         "document_type_id",
         "name",
         "description",
-        "is_deleted"
+        "is_deleted",
+        "others"
     ];
 
     public function documentType() {

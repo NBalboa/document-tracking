@@ -56,6 +56,7 @@ class DocumentController extends Controller
             "type" => $documentType->id,
             "name" => $data["name"],
             "description" => $data["description"],
+            "others" => $data["others"]
         ]);
 
         return redirect()->route("documents")->with("success","Created Documents Successfully.");

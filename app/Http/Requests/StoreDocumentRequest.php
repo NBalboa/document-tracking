@@ -26,6 +26,7 @@ class StoreDocumentRequest extends FormRequest
             "name" => ["required","string"],
             "type" => ["required","string"],
             "description" => ["nullable","string"],
+            "others" => ["nullable", "string"]
         ];
     }
 }

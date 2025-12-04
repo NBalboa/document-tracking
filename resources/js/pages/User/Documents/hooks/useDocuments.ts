@@ -10,6 +10,7 @@ export type FormData = {
     name: string,
     type: string,
     description: string,
+    others: string
 }
 
 export type UpdateFormData = {
@@ -29,7 +30,8 @@ export const useDocuments = () => {
     const { data, setData, post, errors, processing, reset } = useForm<FormData>({
         description: "",
         name: "",
-        type: ""
+        type: "",
+        others: ""
     });
 
     const {

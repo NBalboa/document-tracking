@@ -142,6 +142,7 @@ const Documents = ({
                                     <TableHeadCell>Name</TableHeadCell>
                                     <TableHeadCell>Type</TableHeadCell>
                                     <TableHeadCell>Description</TableHeadCell>
+                                    <TableHeadCell>Others Specify</TableHeadCell>
                                     <TableHeadCell>Status</TableHeadCell>
                                     <TableHeadCell>QR Code</TableHeadCell>
                                     <TableHeadCell>Created By</TableHeadCell>
@@ -155,6 +156,7 @@ const Documents = ({
                                         <TableCell>{data.name}</TableCell>
                                         <TableCell>{data.document_type.name}</TableCell>
                                         <TableCell>{data.description}</TableCell>
+                                        <TableCell>{data.others}</TableCell>
                                         <TableCell>
                                             {
                                                 data.latest_track?.status && (
@@ -210,6 +212,7 @@ const Documents = ({
                 onHandleChangeDescription={(e) => handleChange({ data: 'description', e })}
                 onHandleChangeName={(e) => handleChange({ data: 'name', e })}
                 onHandleChangeType={(e) => handleChange({ data: 'type', e })}
+                onHandleChangeOthers={(e) => handleChange({ data: "others", e })}
                 onHandleSelect={handleSelect}
                 onHandleSubmit={handleSubmit}
                 onHandleToggleList={handleToggleList}

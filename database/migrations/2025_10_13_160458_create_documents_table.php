@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('document_type_id');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('others')->nullable();
             $table->integer('is_deleted')->default(IsDeleted::NO->value);
             $table->timestamps();
         });

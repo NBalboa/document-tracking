@@ -23,7 +23,8 @@ const CreateDocumentModal = ({
     onHandleChangeType,
     onHandleSelect,
     onHandleChangeDescription,
-    processing
+    processing,
+    onHandleChangeOthers
 }: {
     isShowModal?: boolean,
     onHandleToggleModal: () => void
@@ -38,6 +39,7 @@ const CreateDocumentModal = ({
     onHandleChangeType: (e: React.ChangeEvent<HTMLInputElement>) => void,
     onHandleSelect: (value: string) => void,
     onHandleChangeDescription: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
+    onHandleChangeOthers: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
 }) => {
 
 
@@ -92,10 +94,17 @@ const CreateDocumentModal = ({
                         </Command>
                     </Field>
                     <Field>
-                        <FieldLabel>Other Specify</FieldLabel>
+                        <FieldLabel>Description</FieldLabel>
                         <Textarea
                             value={data.description}
                             onChange={onHandleChangeDescription}
+                        />
+                    </Field>
+                    <Field>
+                        <FieldLabel>Others Specify</FieldLabel>
+                        <Textarea
+                            value={data.others}
+                            onChange={onHandleChangeOthers}
                         />
                     </Field>
                     <Field>
