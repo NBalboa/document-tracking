@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\UserController;
@@ -30,9 +31,9 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function (){
 
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
-
     Route::get('/documents', [DocumentController::class, 'index'])->name('documents');
 
+    Route::get('/notifications/{id}', [NotificationController::class, 'index'])->name('notifications');
 
     Route::post('/tracks/{id}', [TrackController::class, 'store'])->name('tracks.create');
 

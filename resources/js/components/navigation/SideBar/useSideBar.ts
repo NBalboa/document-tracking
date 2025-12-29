@@ -8,13 +8,24 @@ import DepartmentController from '@/actions/App/Http/Controllers/DepartmentContr
 import { Role } from '@/pages/User/Users/types';
 import TrackController from '@/actions/App/Http/Controllers/TrackController';
 import ReportController from '@/actions/App/Http/Controllers/ReportController';
+import { IsRead } from '@/types/types';
 
 export const useSideBar = () => {
     const [isBigScreen, setIsBigScreen] = useState(window.innerWidth >= 768 ? true : false);
     const [isShowSideBar, setIsShowSideBar] = useState(window.innerWidth >= 768 ? true : false);
     const [isShowUserMenu, setIsShowUserMenu] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
-    const { auth } = usePage<SharedData>().props;
+    const { auth, notifications } = usePage<SharedData>().props;
+    const [isShowNotifications, setIsShowNotifications] = useState<boolean>(false);
+
+    const toggleNotifications = () => setIsShowNotifications((prev) => !prev)
+
+    const totalUnreads = useMemo(() => {
+        const filtered = notifications.filter((notification) => notification.is_read === IsRead.UNREAD);
+
+        return filtered.length;
+    }, [notifications])
+
     const { user } = auth
 
     const handleResize = useCallback(() => {
@@ -106,7 +117,12 @@ export const useSideBar = () => {
         isHideLabel,
         user,
         handleLogout,
-        links
+        links,
+        notifications,
+        isShowNotifications,
+        toggleNotifications,
+        totalUnreads
+
     }
 }
 

@@ -20,3 +20,8 @@ export type Link = {
     page?: number,
     active: boolean,
 }
+
+export enum IsRead {
+    READ = 1,
+    UNREAD = 0
+}

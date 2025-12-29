@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Service\NotificationService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -36,11 +37,12 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+        $noticationsService = app(NotificationService::class);
 
         return [
             ...parent::share($request),
             'name' => config('app.name'),
+            'notifications' => $noticationsService->all(),
             'auth' => [
                 'user' => $request->user(),
             ],
