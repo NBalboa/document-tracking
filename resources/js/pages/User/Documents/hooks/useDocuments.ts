@@ -96,7 +96,8 @@ export const useDocuments = () => {
                     reset()
                     handleToggleModal()
                 },
-                replace: true
+                replace: true,
+                preserveState: false
             })
         }
     }
@@ -108,7 +109,8 @@ export const useDocuments = () => {
                     reset()
                     handleToggleToggleDocument()
                 },
-                replace: true
+                replace: true,
+                preserveState: false
             })
         }
     }
