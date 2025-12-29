@@ -12,7 +12,8 @@ const useEditDocument = () => {
     const { data, setData, errors, processing, put, reset } = useForm<FormData>({
         description: "",
         name: "",
-        type: ""
+        type: "",
+        others: ""
     });
 
     const toggleIsShowModal = (document?: Document & { document_type: DocumentType }) => {

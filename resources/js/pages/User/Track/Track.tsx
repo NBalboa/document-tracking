@@ -15,6 +15,7 @@ const Track = ({ document }: {
             {document ?
                 <div className='border-1 border-border rounded-lg p-10 shadow-md space-y-5'>
                     <div className='space-y-2'>
+                        <p className='text-muted-foreground'>ID: {document.id}</p>
                         <h3 className="text-lg font-bold">{document.name} <span className='font-normal text-muted-foreground'>({document.document_type.name})</span></h3>
                         <p className='text-muted-foreground'>{document.description}</p>
                         <p className='text-sm text-muted-foreground'>{document.others}</p>

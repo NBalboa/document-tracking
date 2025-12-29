@@ -167,10 +167,13 @@ const Reports = ({
                     {documents.map((document) => (
                         <Card key={document.id}>
                             <CardHeader>
-                                <div className='flex justify-between'>
-                                    <CardTitle>{document.name} -
-                                        <Badge className='ms-2 capitalize'>{document.latest_track.status}</Badge>
-                                    </CardTitle>
+                                <div className='flex justify-between items-center'>
+                                    <div className='space-y-1'>
+                                        <p className='text-muted-foreground'>ID: {document.id}</p>
+                                        <CardTitle>{document.name} -
+                                            <Badge className='ms-2 capitalize'>{document.latest_track.status}</Badge>
+                                        </CardTitle>
+                                    </div>
                                     <CardTitle>{formatDate({ date: document.created_at })}</CardTitle>
                                 </div>
                                 <CardDescription>Author: {document.user.first_name} {document.user.last_name}</CardDescription>
