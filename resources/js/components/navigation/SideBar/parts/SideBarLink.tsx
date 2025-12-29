@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 import { Role } from "@/pages/User/Users/types"
 import { SharedData } from "@/types"
 import { Link, usePage } from "@inertiajs/react"
-import React from "react"
+import React, { useMemo } from "react"
 
 const SideBarLink = ({
     label,
@@ -20,6 +20,11 @@ const SideBarLink = ({
 }) => {
     const { auth } = usePage<SharedData>().props;
     const { url } = usePage<SharedData>()
+
+    const isActive = useMemo(() => {
+        return url.split("?")[0] === to
+    }, [to, url])
+
     return (
         <>
             {allowedRoles({ roles, role: auth.user?.role }) &&
@@ -28,7 +33,7 @@ const SideBarLink = ({
                         className={cn([
                             "flex items-center gap-2 hover:bg-input/25 rounded-md p-2 ",
                             isHideLabel && 'justify-center',
-                            to.startsWith(url) && url.toLowerCase().includes(to.toLowerCase()) && 'text-primary'
+                            isActive && 'text-primary'
                         ])}
                     >
                         {icon}

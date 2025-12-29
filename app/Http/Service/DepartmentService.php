@@ -8,7 +8,7 @@ use App\Models\Department;
 
 class DepartmentService {
 
-    public function all(?bool $isPaginated = false, ?string $search) {
+    public function all(?bool $isPaginated = false, ?string $search = null) {
 
         if($isPaginated){
             return Department::when($search, function ($query) use ($search) {

@@ -8,17 +8,26 @@ use App\Http\Enum\Role;
 use App\Http\Enum\TrackStatus;
 use Illuminate\Support\Str;
 use App\Models\Document;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class DocumentService {
 
 
-    public function all(?string $search) {
+    public function all(
+        ?string $search = null,
+        ?string $type = null,
+        ?string $status = null,
+        ?string $date = null,
+        ?string $department = null,
+        ?bool $showTracks = false,
+        ?bool $isPaginate = true
+        ) {
 
         $user = Auth::user();
 
 
-        $documents = Document::with(['documentType', 'user', 'latestTrack'])
+        $documents = Document::with(['documentType', 'user.department', 'latestTrack'])
             ->when($search, function ($query) use ($search) {
                 $query->whereAny(['id','name', 'description'], 'LIKE', "%{$search}%")
                         ->orWhereHas('documentType', fn($q) => $q->where('name', 'LIKE', "%{$search}%"))
@@ -33,9 +42,40 @@ class DocumentService {
             ->when($user->role === Role::USER->value, function ($query) use ($user) {
                 $query->whereHas('tracks', fn($q) => $q->where('user_id', $user->id));
             })
-            ->isNotDeleted()
-            ->paginate(10)
-            ->withQueryString();
+            ->when($type, function ( $query) use($type) {
+                $query->whereHas('documentType', function ($query) use($type) {
+                    $query->where('name',  $type);
+                });
+            })
+            ->when($status, function ($query) use($status) {
+                $query->whereHas('latestTrack', function ($query) use($status) {
+                    $query->where('status',  $status);
+                });
+            })
+            ->when($date, function ($query) use($date) {
+                $start = Carbon::createFromFormat('m/d/Y', $date)->startOfDay();
+                $end   = Carbon::createFromFormat('m/d/Y', $date)->endOfDay();
+
+                $query->whereBetween('created_at', [$start, $end]);
+            })
+            ->when($showTracks, function ($query) {
+                    $query->with([
+                        'tracks' => function ($query) {
+                            $query->latest()->with('user.department');
+                        }
+                    ]);
+            })
+            ->when($department, function ($query) use ($department){
+                $query->whereHas('user', function ($query) use($department) {
+                    $query->whereHas('department', function ($query) use($department){
+                        $query->where('name', $department);
+                    });
+                });
+            })
+            ->isNotDeleted();
+
+        $documents = $isPaginate ? $documents->paginate(10)->withQueryString() : $documents->get();
+
 
         return $documents;
     }

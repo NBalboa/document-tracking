@@ -7,6 +7,7 @@ import UserController from '@/actions/App/Http/Controllers/UserController';
 import DepartmentController from '@/actions/App/Http/Controllers/DepartmentController';
 import { Role } from '@/pages/User/Users/types';
 import TrackController from '@/actions/App/Http/Controllers/TrackController';
+import ReportController from '@/actions/App/Http/Controllers/ReportController';
 
 export const useSideBar = () => {
     const [isBigScreen, setIsBigScreen] = useState(window.innerWidth >= 768 ? true : false);
@@ -59,6 +60,12 @@ export const useSideBar = () => {
             icon: 'track',
             roles: ['admin', 'staff', 'user']
         },
+        {
+            name: "Reports",
+            to: ReportController.index.url(),
+            icon: 'report',
+            roles: ['admin', 'staff', 'user']
+        }
     ]
 
     const isHideLabel = useMemo(() => isBigScreen && !isShowSideBar, [isBigScreen, isShowSideBar])

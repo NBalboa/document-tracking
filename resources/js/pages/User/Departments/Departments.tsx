@@ -105,8 +105,6 @@ const Departments = ({ departments, filter: search }: { departments: Paginate<De
                     </FieldGroup>
                 </form>
             </Modal>
-
-
         </>
     )
 }
