@@ -16,8 +16,7 @@ class NotificationService {
             return null;
         }
 
-        return Notification::with(['user', 'track'])
-            ->where('user_id', $user->id)
+        return Notification::where('user_id', $user->id)
             ->latest()
             ->get();
     }
