@@ -72,7 +72,7 @@ export const useSideBar = () => {
             roles: ['admin', 'staff', 'user']
         },
         {
-            name: "Reports",
+            name: "Transaction Reports",
             to: ReportController.index.url(),
             icon: 'report',
             roles: ['admin', 'staff', 'user']
