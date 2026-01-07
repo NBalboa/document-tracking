@@ -1,10 +1,9 @@
-import { router, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import QrScanner from 'qr-scanner';
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { UpdateFormData } from './useDocuments';
 import { toast } from 'react-toastify';
 import TrackController from '@/actions/App/Http/Controllers/TrackController';
-import DocumentController from '@/actions/App/Http/Controllers/DocumentController';
 
 
 
@@ -61,12 +60,6 @@ const useDocumentScanner = () => {
                 onSuccess: () => {
                     reset()
                     handleToggleQrScanner()
-                    if (qrResult.startsWith('/tracks')) {
-                        router.get(`${DocumentController.index.url()}${qrResult}`)
-                    }
-                    else {
-                        router.get(`${DocumentController.index.url()}/tracks/${qrResult}`)
-                    }
                 },
                 onError: (errors: Partial<Record<keyof UpdateFormData, string>>) => {
                     toast.warn(`${errors.status}. Please try again.`);

@@ -1,6 +1,10 @@
 import { AuthLayout } from '@/layouts/AuthLayout'
 import { Track as TrackType } from './types';
 import { Document, DocumentType } from '../Documents/types';
+import { SharedData } from '@/types';
+import { usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const Track = ({ document }: {
     document?: Document & {
@@ -10,6 +14,13 @@ const Track = ({ document }: {
 }) => {
 
 
+    const { flash } = usePage<SharedData>().props
+
+    useEffect(() => {
+        if (!flash.success) return
+
+        toast.success(flash.success)
+    }, [flash.success])
     return (
         <AuthLayout>
             {document ?

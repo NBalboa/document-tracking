@@ -49,6 +49,6 @@ class TrackController extends Controller
         ]);
 
 
-        return redirect()->route("documents")->with("success","Document Updated Successfully");
+        return redirect()->route("documents.tracks", ["id" => $id])->with("success","Document Updated Successfully");
     }
 }
